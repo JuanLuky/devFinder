@@ -1,0 +1,79 @@
+* {
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 24px;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+ background-color: rgb(14, 31, 57);
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+}
+.header {
+  width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  margin-bottom: 30px;
+}
+.header h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+.header p {
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+
+
+
+.searchInput {
+  padding: 10px;
+  background-color: rgb(35, 63, 105);
+  border-radius: 10px;
+  display: flex;
+}
+.searchInput input {
+  width: 100%;
+  margin-left: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+}
+.searchInput input::placeholder {
+  color: white;
+}
+
+.searchInput button {
+  background-color: rgb(1, 147, 215);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 20px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  transition: all .5s;
+}
+.searchInput button:hover {
+  filter: brightness(1.4);
+}

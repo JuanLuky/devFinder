@@ -1,3 +1,4 @@
+import { Content } from './components/Content'
 import { Header } from './components/Header'
 import { Search } from './components/Search'
 import './styles.css'
@@ -5,9 +6,10 @@ import './styles.css'
 export function App() {
 
   return (
-    <div>
+    <div className='container'>
       <Header/>
       <Search/>
+      <Content/>
     </div>
   )
 }

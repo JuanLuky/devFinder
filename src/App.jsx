@@ -8,8 +8,6 @@ export function App() {
   return (
     <div className='container'>
       <Header/>
-      <Search/>
-      <Content/>
     </div>
   )
 }

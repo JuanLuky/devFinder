@@ -1,60 +1,66 @@
-import { InstagramLogo, MapPin } from "phosphor-react";
+import { Buildings, MapPin } from "phosphor-react";
+import { useState } from "react";
 import { Search } from "./Search";
 
 export function Content() {
+
+  const [apiUsername, setApiUsername] = useState("");
 
   function SearchUser(newUser) {
     const user = newUser;
     fetch(`https://api.github.com/users/${user}`)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setApiUsername(data));
   }
+
 
   return (
     <>
       <Search SearchUser={SearchUser}/>
 
+      { apiUsername === '' ? null: 
       <div className="card">
-        <img src="https://github.com/JuanLuky.png" alt="foto perfil" />
+        <img src={apiUsername.avatar_url} alt="foto perfil" />
 
         <div className="card-content">
           <header>
             <div>
-              <h1>Juaan Carlos</h1>
-              <p>Develope</p>
+              <h1>{apiUsername.name}</h1>
+              <p>{apiUsername.login}</p>
             </div>
-            <p>25 de jan 2021</p>
+            <p>{apiUsername.updated_at}</p>
           </header>
 
-          <p className="description"> Lorem ipsum dolor sit amet</p>
+          <p className="description">{apiUsername.bio}</p>
 
           <div className="follows-area">
             <div>
               <p>Repos</p>
-              <h4>9</h4>
+              <h4>{apiUsername.public_repos}</h4>
             </div>
             <div>
               <p>Followers</p>
-              <h4>9987</h4>
+              <h4>{apiUsername.followers}</h4>
             </div>
             <div>
               <p>Following</p>
-              <h4>9</h4>
+              <h4>{apiUsername.following}</h4>
             </div>
           </div>
 
           <div className="locale-area">
             <div>
               <MapPin size={20} color="white" />
-              <p>San Francisco</p>
+              <p>{apiUsername.location}</p>
             </div>
             <div>
-              <InstagramLogo size={20} color="white" />
-              <p>uJuan</p>
+              <Buildings size={20} color="white" />
+              <p>{apiUsername.company}</p>
             </div>
           </div>
         </div>
       </div>
+      }
     </>
   );
 }

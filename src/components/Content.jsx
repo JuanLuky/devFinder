@@ -15,6 +15,9 @@ export function Content() {
       .then((data) => setApiUsername(data));
   }
 
+  const data = String(apiUsername.created_at);
+  const newData = data.slice(0, 10).split('-').reverse().join('/');
+
   return (
     <>
       <Search SearchUser={SearchUser} />
@@ -29,7 +32,7 @@ export function Content() {
                 <h1>{apiUsername.name}</h1>
                 <p>{apiUsername.login}</p>
               </div>
-              <p>{apiUsername.updated_at}</p>
+              <p>{newData}</p>
             </header>
 
             <p className="description">{apiUsername.bio}</p>

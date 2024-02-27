@@ -1,68 +1,41 @@
-import { Buildings, MapPin } from "phosphor-react";
 import { useState } from "react";
 import { Search } from "./Search";
 
 export function Content() {
   const [apiUsername, setApiUsername] = useState("");
-
   function SearchUser(newUser) {
     if( newUser === '' ) {
       return alert('Preencha o campo abaixo')
     }
     const user = newUser;
-    fetch(`https://api.github.com/users/${user}`)
-      .then((response) => response.json())
-      .then((data) => setApiUsername(data));
-  }
-
-  const data = String(apiUsername.created_at);
-  const newData = data.slice(0, 10).split('-').reverse().join('/');
-
+    fetch(`http://wsrh.mateus/rh/api/rh-rest-funcionario-rubi/v1/funcionarios/${user}`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json"
+      }
+      })
+      .then((response) => {
+        if (!response.ok) {
+        throw new Error('Erro ao recuperar os dados da API');
+        }
+      return response.json();
+     })
+      .then((data) => setApiUsername(data))
+      .catch((error) => {
+      console.error('Erro ao recuperar dados da API:', error);
+      })
+    }
+    
   return (
     <>
       <Search SearchUser={SearchUser} />
       
       {apiUsername === "" ? null : (
         <div className="card">
-          <img src={apiUsername.avatar_url} alt="foto perfil" />
-
-          <div className="card-content">
-            <header>
-              <div>
-                <h1>{apiUsername.name}</h1>
-                <p>{apiUsername.login}</p>
-              </div>
-              <p>{newData}</p>
-            </header>
-
-            <p className="description">{apiUsername.bio}</p>
-
-            <div className="follows-area">
-              <div>
-                <p>Repos</p>
-                <h4>{apiUsername.public_repos}</h4>
-              </div>
-              <div>
-                <p>Followers</p>
-                <h4>{apiUsername.followers}</h4>
-              </div>
-              <div>
-                <p>Following</p>
-                <h4>{apiUsername.following}</h4>
-              </div>
-            </div>
-
-            <div className="locale-area">
-              <div>
-                <MapPin size={20} color="white" />
-                <p>{apiUsername.location}</p>
-              </div>
-              <div>
-                <Buildings size={20} color="white" />
-                <p>{apiUsername.company}</p>
-              </div>
-            </div>
-          </div>
+          <h1>name: {apiUsername.cpf}</h1>
         </div>
       )}
     </>

@@ -10,7 +10,7 @@ export function Search({SearchUser}) {
         <MagnifyingGlass size={32} color="#0479FB" />
         <input
           type="text"
-          placeholder="Search GitHub username..."
+          placeholder="Informe o CPF"
           onChange={(e) => setNewUser(e.target.value)}
           value={newUser}
         />

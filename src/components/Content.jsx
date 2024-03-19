@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { Search } from "./Search";
+import SvgComponent from "./Header";
 
 export function Content() {
   const [apiUsername, setApiUsername] = useState("");
-  function SearchUser(newUser) {
+  async function SearchUser(newUser) {
     if( newUser === '' ) {
       return alert('Preencha o campo abaixo')
     }
     const user = newUser;
-    fetch(`http://wsrh.mateus/rh/api/rh-rest-funcionario-rubi/v1/funcionarios/${user}`, {
-      method: 'GET',
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
+    const res=await fetch(`http://wsrh.mateus/rh/api/rh-rest-funcionario-rubi/v1/funcionarios/${user}`);
+
+    fetch(res, {
       headers: {
-        "Content-Type": "application/json"
+        "content-type": "application/json",
+        "server": "istio-envoy ",
+        "transfer-encoding": "chunked" ,
+        "x-envoy-upstream-service-time": "434",
       }
       })
       .then((response) => {
@@ -35,7 +37,7 @@ export function Content() {
       
       {apiUsername === "" ? null : (
         <div className="card">
-          <h1>name: {apiUsername.cpf}</h1>
+          <h1>CPF: {apiUsername.cpf}</h1>
         </div>
       )}
     </>
